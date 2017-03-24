@@ -1,37 +1,35 @@
-## Welcome to GitHub Pages
+# ecs-pip-plugin
 
-You can use the [editor on GitHub](https://github.com/eacg-gmbh/ecs-pip-plugin/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+The **ecs-pip-plugin** scans a Python project for all installed pip modules. The plugin parses import statements of all project's source files and recursively extracts the complete module dependency tree. 
+The collected information is posted to the ECS service.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Installation
 
-### Markdown
+#### Requirements
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- **pip** - is often already contained in the Python distribution but in some cases, please, follow the pip's [installation instruction](https://pip.pypa.io/en/stable/installing/) 
+
+#### Installation from a local folder
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+cd <path to the ecs-pip-plugin>
+pip install ./
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Usage
 
-### Jekyll Themes
+```markdown
+ecs-pip-plugin <path to the project directory>
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/eacg-gmbh/ecs-pip-plugin/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+#### Requirements
 
-### Support or Contact
+- **ecs-plugin.json** - settings file in the project's directory
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Project settings (ecs-plugin.json)
+
+- **project** : String - project name
+- **credentials** : String [optional] - location of the file containing login information (userName and appKey) for the ECS service. Ignored: if a userName or appKey keys are present in the config file
+- **userName** : String - ECS login name
+- **appKey** : String - ECS key for apps
+- **skipTransfer** : Bool - outputs the scan results into the stdout without submitting to the ECS service
