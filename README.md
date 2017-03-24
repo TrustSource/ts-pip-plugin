@@ -33,3 +33,7 @@ ecs-pip-plugin <path to the project directory>
 - **userName** : String - ECS login name
 - **appKey** : String - ECS key for apps
 - **skipTransfer** : Bool - outputs the scan results into the stdout without submitting to the ECS service
+
+## License
+
+[MIT](https://github.com/eacg-gmbh/ecs-pip-plugin/blob/master/LICENSE)
