@@ -6,29 +6,41 @@ import pip.commands.show
 
 
 class Scanner:
-    def __init__(self, path=os.getcwd()):
-        self.scan_path = path
+    def __init__(self, client):
+        self._client = client
 
-        self.__found_packages = set()
-        self.__import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9]+)(?:.*)')
+        self._found_packages = set()
+        self._import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9]+)(?:.*)')
+
 
     def run(self):
-        path = os.path.expanduser(self.scan_path)
+        scanPath = self._client.scanPath
+        path = os.path.expanduser(scanPath)
         path = os.path.expandvars(path)
-        os.path.walk(path, Scanner.__scan_dir, self)
-        return create_dependencies(self.__found_packages)
+        os.path.walk(path, Scanner._scan_dir, self)
+
+        mod = os.path.basename(scanPath.rstrip(os.sep))
+
+        scanInfo = {
+            'project': self._client.projectName,
+            'module': mod,
+            'moduleId': 'pip:' + mod,
+            'dependencies': create_dependencies(self._found_packages)
+        }
+
+        return scanInfo
 
 
-    def __scan_dir(self, dir_path, names):
+    def _scan_dir(self, dir_path, names):
         for n in names:
             name = os.path.join(dir_path, n)
             if os.path.isfile(name) and os.path.splitext(name)[-1].lower() == '.py':
-                self.__extract_imports(name)
+                self._extract_imports(name)
 
-    def __extract_imports(self, src_file):
+    def _extract_imports(self, src_file):
         with open(src_file, "r") as src:
-            imports = self.__import_statement_regex.findall(src.read())
-            self.__found_packages |= set(imports)
+            imports = self._import_statement_regex.findall(src.read())
+            self._found_packages |= set(imports)
 
 
 def create_dependencies(packages):

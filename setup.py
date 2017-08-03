@@ -21,7 +21,11 @@ setup(
 
     classifiers=[],
 
-    install_requires=['requests'],
+    install_requires=['ecs-python-client'],
+
+    dependency_links=[
+        'git+https://github.com/eacg-gmbh/ecs-python-client.git#egg=ecs-python-client-0'
+    ],
 
     scripts=['ecs-pip-plugin'],
 

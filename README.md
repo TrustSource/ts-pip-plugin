@@ -13,7 +13,7 @@ The collected information is posted to the ECS service.
 
 ```markdown
 cd <path to the ecs-pip-plugin>
-pip install ./
+pip install ./ --process-dependency-links
 ```
 
 ## Usage
