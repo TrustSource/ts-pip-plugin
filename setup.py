@@ -5,7 +5,7 @@ setup(
 
     packages=['ecs_pip_plugin'],
 
-    version='0.1',
+    version='0.1.1',
 
     description='Scans a Python project for all installed pip modules and posts the scan information to the ECS service',
 
@@ -17,14 +17,14 @@ setup(
 
     download_url='',
 
-    keywords=['scanning', 'dependencies', 'modules', 'ECS'],
+    keywords=['scanning', 'dependencies', 'modules', 'ECS', 'TrustSource'],
 
     classifiers=[],
 
     install_requires=['ecs-python-client'],
 
     dependency_links=[
-        'git+https://github.com/eacg-gmbh/ecs-python-client.git#egg=ecs-python-client-0'
+        'git+https://github.com/eacg-gmbh/ecs-python-client.git#egg=ecs-python-client-0.1.1'
     ],
 
     scripts=['ecs-pip-plugin'],

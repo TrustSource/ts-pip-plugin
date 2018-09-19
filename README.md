@@ -1,7 +1,7 @@
 # ecs-pip-plugin
 
 The **ecs-pip-plugin** scans a Python project for all installed pip modules. The plugin parses import statements of all project's source files and recursively extracts the complete module dependency tree. 
-The collected information is posted to the ECS service.
+The collected information is posted to the TrustSource (ECS) service.
 
 ## Installation
 
