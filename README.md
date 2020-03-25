@@ -24,7 +24,7 @@ ts-pip-plugin <path to the project directory>
 
 #### Requirements
 
-- **ecs-plugin.json** - settings file in the project's directory
+- **ts-plugin.json** - settings file in the project's directory
 
 ## Project settings (ts-plugin.json)
 
