@@ -1,5 +1,0 @@
-{
-  "project" : "ecs-scan",
-  "credentials" : "../../ecs-settings.json",
-  "skipTransfer" : true
-}

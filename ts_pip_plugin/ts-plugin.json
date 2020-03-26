@@ -1,0 +1,5 @@
+{
+  "project" : "ts-scan",
+  "credentials" : "../../ts-settings.json",
+  "skipTransfer" : true
+}

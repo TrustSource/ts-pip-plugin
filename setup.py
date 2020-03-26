@@ -1,35 +1,35 @@
 from setuptools import setup
 
 setup(
-    name='ecs-pip-plugin',
+    name='ts-pip-plugin',
 
-    packages=['ecs_pip_plugin'],
+    packages=['ts_pip_plugin'],
 
-    version='0.1.1',
+    version='1.0.0',
 
-    description='Scans a Python project for all installed pip modules and posts the scan information to the ECS service',
+    description='Scans a Python project for all installed pip modules and posts the scan information to the TrustSource service or writes it to disc',
 
     author='EACG GmbH',
 
-    license='MIT',
+    license='ASL-2.0',
 
-    url='https://github.com/eacg-gmbh/ecs-pip-plugin.git',
+    url='https://github.com/trustsource/ts-pip-plugin.git',
 
     download_url='',
 
-    keywords=['scanning', 'dependencies', 'modules', 'ECS', 'TrustSource'],
+    keywords=['scanning', 'dependencies', 'modules', 'compliance', 'TrustSource'],
 
     classifiers=[],
 
-    install_requires=['ecs-python-client'],
+    install_requires=['ts-python-client'],
 
     dependency_links=[
-        'git+https://github.com/eacg-gmbh/ecs-python-client.git#egg=ecs-python-client-0.1.1'
+        'git+https://github.com/trustsource/ts-python-client.git#egg=ts-python-client-1.0.0'
     ],
 
-    scripts=['ecs-pip-plugin'],
+    scripts=['ts-pip-plugin'],
 
     entry_points={
-        'console_scripts': ['ecs-pip-plugin=ecs_pip_plugin.cli:main'],
+        'console_scripts': ['ts-pip-plugin=ts_pip_plugin.cli:main'],
     }
 )
