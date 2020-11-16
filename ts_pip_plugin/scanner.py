@@ -1,9 +1,7 @@
 import os
 import re
 
-import pip
-import pip.commands.show
-
+from importlib_metadata import metadata, PackageNotFoundError
 
 class Scanner:
     def __init__(self, client):
@@ -13,11 +11,22 @@ class Scanner:
         self._import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9]+)(?:.*)')
 
 
+    def _extract_imports(self, src_file):
+        with open(src_file, "r") as src:
+            imports = self._import_statement_regex.findall(src.read())
+            self._found_packages |= set(imports)
+
+
     def run(self):
         scanPath = self._client.scanPath
         path = os.path.expanduser(scanPath)
         path = os.path.expandvars(path)
-        os.path.walk(path, Scanner._scan_dir, self)
+
+        for dirpath, _, filenames in os.walk(path):
+            for n in filenames:
+                name = os.path.join(dirpath, n)
+                if os.path.isfile(name) and os.path.splitext(name)[-1].lower() == '.py':
+                    self._extract_imports(name)
 
         mod = os.path.basename(scanPath.rstrip(os.sep))
 
@@ -31,24 +40,18 @@ class Scanner:
         return scanInfo
 
 
-    def _scan_dir(self, dir_path, names):
-        for n in names:
-            name = os.path.join(dir_path, n)
-            if os.path.isfile(name) and os.path.splitext(name)[-1].lower() == '.py':
-                self._extract_imports(name)
-
-    def _extract_imports(self, src_file):
-        with open(src_file, "r") as src:
-            imports = self._import_statement_regex.findall(src.read())
-            self._found_packages |= set(imports)
-
-
 def create_dependencies(packages):
 
     processed_packages = set()
 
     def do_create_dependencies(pkgs):
-        packages_info = pip.commands.show.search_packages_info(pkgs)
+        packages_info = []
+        for pkg in pkgs:
+            try:
+                packages_info.append(metadata(pkg))
+            except  PackageNotFoundError as err:
+                continue
+
         for info in packages_info:
             name = info.get('name', '')
             key = 'pip:' + name.lower()

@@ -1,5 +1,7 @@
-from ts_python_client import *
-from scanner import *
+import sys
+
+from ts_python_client.client import TSClient
+from .scanner import *
 
 def main():
     tool = TSClient('ts_pip_plugin', Scanner)
