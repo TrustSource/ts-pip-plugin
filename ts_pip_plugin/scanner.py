@@ -8,7 +8,7 @@ class Scanner:
         self._client = client
 
         self._found_packages = set()
-        self._import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9]+)(?:.*)')
+        self._import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9_]+)(?:.*)')
 
 
     def _extract_imports(self, src_file):
