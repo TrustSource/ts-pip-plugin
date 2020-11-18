@@ -23,10 +23,6 @@ setup(
 
     install_requires=['ts-python-client', 'importlib-metadata'],
 
-    dependency_links=[
-        'git+https://github.com/trustsource/ts-python-client.git#egg=ts-python-client-1.0.0'
-    ],
-
     scripts=['ts-pip-plugin'],
 
     entry_points={

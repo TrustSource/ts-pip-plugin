@@ -1,4 +1,6 @@
 .idea
 *.pyc
+*.egg-info
 venv
 build
+dist
