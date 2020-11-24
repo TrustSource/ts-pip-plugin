@@ -1,6 +1,7 @@
 import os
 import re
 
+from pathlib import Path
 from importlib_metadata import metadata, PackageNotFoundError
 
 class Scanner:
@@ -11,27 +12,36 @@ class Scanner:
         self._import_statement_regex = re.compile(r'(?:from|import) ([a-zA-Z0-9_]+)(?:.*)')
 
 
-    def _extract_imports(self, src_file):
-        with open(src_file, "r") as src:
-            imports = self._import_statement_regex.findall(src.read())
-            self._found_packages |= set(imports)
+    def _extract_imports(self, src_file: Path):
+        with src_file.open('r') as src:
+            try:
+                imports = self._import_statement_regex.findall(src.read())
+                self._found_packages |= set(imports)
+            except:
+                pass
 
 
-    def run(self):
-        scanPath = self._client.scanPath
-        path = os.path.expanduser(scanPath)
-        path = os.path.expandvars(path)
+    def run(self, settings=None):
+        path = os.path.expandvars(self._client.scanPath)
+        path = Path(path).expanduser().resolve()
 
-        for dirpath, _, filenames in os.walk(path):
-            for n in filenames:
-                name = os.path.join(dirpath, n)
-                if os.path.isfile(name) and os.path.splitext(name)[-1].lower() == '.py':
-                    self._extract_imports(name)
+        ignore_list = settings.get('ignore', []) if settings else []
 
-        mod = os.path.basename(scanPath.rstrip(os.sep))
+        def walk(dirpath: Path):
+            for p in dirpath.iterdir():
+                # Improve checks to support wildcards etc.
+                if p.name in ignore_list:
+                   continue
+
+                if p.is_file() and p.suffix == '.py':
+                    self._extract_imports(p)
+                elif p.is_dir():
+                    walk(p)
+
+        walk(path)
+        mod = path.name
 
         scanInfo = {
-            'project': self._client.projectName,
             'module': mod,
             'moduleId': 'pip:' + mod,
             'dependencies': create_dependencies(self._found_packages)

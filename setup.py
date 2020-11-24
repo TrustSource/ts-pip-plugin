@@ -5,7 +5,7 @@ setup(
 
     packages=['ts_pip_plugin'],
 
-    version='1.0.0',
+    version='1.0.1',
 
     description='Scans a Python project for all installed pip modules and posts the scan information to the TrustSource service or writes it to disc',
 
