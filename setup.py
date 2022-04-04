@@ -5,7 +5,7 @@ setup(
 
     packages=['ts_pip_plugin'],
 
-    version='1.0.2',
+    version='1.0.3',
 
     description='Scans a Python project for all installed pip modules and posts the scan information to the TrustSource service or writes it to disc',
 
@@ -21,7 +21,10 @@ setup(
 
     classifiers=[],
 
-    install_requires=['ts-python-client', 'importlib-metadata'],
+    install_requires=[
+        'ts-python-client==1.0.3', 
+        'importlib-metadata'
+    ],
 
     scripts=['ts-pip-plugin'],
 
