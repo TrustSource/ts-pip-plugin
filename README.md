@@ -36,4 +36,4 @@ ts-pip-plugin <path to the project directory>
 
 ## License
 
-[ASL-2.0](https://github.com/trustsource/ts-pip-plugin/blob/master/LICENSE)
+This software is licensed under the Apache Software License, version 2.0 ([ASL-2.0](https://github.com/trustsource/ts-pip-plugin/blob/master/LICENSE))
