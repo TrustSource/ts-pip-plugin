@@ -3,9 +3,9 @@
 The **ts-pip-plugin** scans a Python project for all installed pip modules. The plugin parses import statements of all project's source files and recursively extracts the complete module dependency tree. 
 The collected information is posted to the TrustSource service or will store it locally as JSON structure.
 
-# PLEASE NOTE:
-We merged our efforts to provide scanners for different languages into one scanner with the [ts-scan](https://github.com/trustsource/ts-scan) project. The idea is to provide one project capable of scanning all sort of languages. This will reduce efforts and simplify usage. 
-We did not yet depricate this project, since it still can be used and of value to pure python users. But we will not continue to maintain this tool.
+> [!WARNING]
+> **PLEASE NOTE:**
+> We merged our efforts to provide scanners for different languages into one scanner with the [ts-scan](https://github.com/trustsource/ts-scan) project. This project could still be used. But we will not continue to maintain this tool.
 
 ## Installation
 
